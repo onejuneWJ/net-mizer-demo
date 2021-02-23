@@ -1,0 +1,10 @@
+.charts-wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.charts{
+  width: 33%;
+  height: 400px;
+  background-color: rgb(243,243,243);
+}

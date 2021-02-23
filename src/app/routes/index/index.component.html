@@ -1,0 +1,15 @@
+<app-main-content>
+  <app-content-body>
+    <div class="charts-wrapper">
+      <nz-card class="charts">
+        <div echarts [options]="beaconOption" (chartClick)="click($event)"></div>
+      </nz-card>
+      <nz-card class="charts">
+        <div echarts [options]="transducerOption"  (chartClick)="click($event)"></div>
+      </nz-card>
+      <nz-card class="charts">
+        <div echarts [options]="antennaOption" (chartClick)="click($event)"></div>
+      </nz-card>
+    </div>
+  </app-content-body>
+</app-main-content>
