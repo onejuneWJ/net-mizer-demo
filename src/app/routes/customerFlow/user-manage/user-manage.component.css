@@ -1,0 +1,5 @@
+.remarks{
+  display: flex;
+  flex-directior: row;
+  justify-content: flex-start;
+}

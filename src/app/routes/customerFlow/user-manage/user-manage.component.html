@@ -13,14 +13,13 @@
           <thead>
           <tr>
             <th nzWidth="50px">序号</th>
-            <th nzWidth="80px">用户</th>
-            <th nzWidth="80px">县市</th>
-            <th nzWidth="80px">设备</th>
-            <th nzWidth="80px">带宽利用率</th>
-            <th nzWidth="80px">IP</th>
-            <th nzWidth="80px">到期时间</th>
-            <th nzWidth="80px">备注</th>
-
+            <th nzWidth="60px">用户</th>
+            <th nzWidth="60px">县市</th>
+            <th nzWidth="60px">设备</th>
+            <th nzWidth="60px">带宽利用率</th>
+            <th nzWidth="60px">IP</th>
+            <th nzWidth="60px">到期时间</th>
+            <th nzWidth="120px">备注</th>
           </tr>
           </thead>
           <tbody>
@@ -29,18 +28,96 @@
             <td>{{data.user}}</td>
             <td>{{data.city}}</td>
             <td>{{data.equip}}</td>
-            <td>{{data.bandwidthUsage}}</td>
+            <td>{{data.bandwidthUsage | number: '0.2-2'}}%</td>
             <td>{{data.ip}}</td>
             <td>{{data.expireTime}}</td>
-            <td><input nz-input/></td>
+            <td class="remarks"><input nz-input/><button nz-button nzType="primary">提交</button></td>
           </tr>
           </tbody>
         </nz-table>
       </nz-tab>
-      <nz-tab nzTitle="带宽利用率管理">
+      <nz-tab nzTitle="带宽不足用户">
+        <button nz-button nzType="danger">通知市场部门跟进</button>
+        <nz-table
+          [nzBordered]="true" #bandwidthShortageTable
+          [nzShowPagination]="true"
+          [nzFrontPagination]="true"
+          [nzLoading]="bandwidthShortageTableLoading"
+          [nzData]="bandwidthShortageDataList"
+        >
+          <thead>
+          <tr>
+            <th nzAlign="center" nzWidth="50px" [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+            <th nzWidth="50px">序号</th>
+            <th nzWidth="60px">用户</th>
+            <th nzWidth="60px">县市</th>
+            <th nzWidth="60px">设备</th>
+            <th nzWidth="60px">带宽利用率</th>
+            <th nzWidth="60px">IP</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of bandwidthShortageTable.data,index as i">
+            <td [nzChecked]="setOfCheckedId.has(data.id)"
+                [nzDisabled]="data.disabled"
+                (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+            <td>{{i + 1}}</td>
+            <td><a nz-button nzType="link" (click)="showModal()">{{data.user}}</a></td>
+            <td>{{data.city}}</td>
+            <td>{{data.equip}}</td>
+            <td>{{data.bandwidthUsage | number: '0.2-2'}}%</td>
+            <td>{{data.ip}}</td>
+          </tr>
+          </tbody>
+        </nz-table>
       </nz-tab>
       <nz-tab nzTitle="带宽使用波动情况">
+        <div align="right">
+          <button nz-button nzType="primary" nzShape="round" (click)="download()"><i nz-icon nzType="download"></i>导出报表</button>
+        </div>
+        <div>
+          <nz-card>
+            <div echarts [options]="bandwidthSituationOpt"></div>
+          </nz-card>
+        </div>
+        <nz-table
+          [nzBordered]="true" #bandwidthSituationTable
+          [nzShowPagination]="true"
+          [nzFrontPagination]="true"
+          [nzLoading]="bandwidthSituationTableLoading"
+          [nzData]="bandwidthSituationDataList"
+          title="带宽用户列表"
+        >
+          <thead>
+          <tr>
+            <th nzWidth="50px">序号</th>
+            <th nzWidth="60px">用户</th>
+            <th nzWidth="60px">县市</th>
+            <th nzWidth="60px">设备</th>
+            <th nzWidth="60px">带宽使用峰值</th>
+            <th nzWidth="60px">IP</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of bandwidthSituationTable.data,index as i">
+            <td>{{i + 1}}</td>
+            <td>{{data.user}}</td>
+            <td>{{data.city}}</td>
+            <td>{{data.equip}}</td>
+            <td>{{data.bandwidthPeak | number: '0.2-2'}}%</td>
+            <td>{{data.ip}}</td>
+          </tr>
+          </tbody>
+        </nz-table>
       </nz-tab>
     </nz-tabset>
   </app-content-body>
 </app-main-content>
+
+<nz-modal nzWidth="1000px" [(nzVisible)]="isVisible" nzTitle="带宽不足依据" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <nz-card>
+      <div echarts [options]="basisOpt"></div>
+    </nz-card>
+  </ng-container>
+</nz-modal>
