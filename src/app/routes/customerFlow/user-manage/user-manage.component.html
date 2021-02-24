@@ -1,0 +1,46 @@
+<app-main-content>
+  <app-content-header [title]="'用户流量带宽管理'"></app-content-header>
+  <app-content-body>
+    <nz-tabset>
+      <nz-tab nzTitle="到期用户">
+        <nz-table
+          [nzBordered]="true" #expireTable
+          [nzShowPagination]="true"
+          [nzFrontPagination]="true"
+          [nzLoading]="expireTableLoading"
+          [nzData]="expireDataList"
+        >
+          <thead>
+          <tr>
+            <th nzWidth="50px">序号</th>
+            <th nzWidth="80px">用户</th>
+            <th nzWidth="80px">县市</th>
+            <th nzWidth="80px">设备</th>
+            <th nzWidth="80px">带宽利用率</th>
+            <th nzWidth="80px">IP</th>
+            <th nzWidth="80px">到期时间</th>
+            <th nzWidth="80px">备注</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of expireTable.data,index as i">
+            <td>{{i + 1}}</td>
+            <td>{{data.user}}</td>
+            <td>{{data.city}}</td>
+            <td>{{data.equip}}</td>
+            <td>{{data.bandwidthUsage}}</td>
+            <td>{{data.ip}}</td>
+            <td>{{data.expireTime}}</td>
+            <td><input nz-input/></td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </nz-tab>
+      <nz-tab nzTitle="带宽利用率管理">
+      </nz-tab>
+      <nz-tab nzTitle="带宽使用波动情况">
+      </nz-tab>
+    </nz-tabset>
+  </app-content-body>
+</app-main-content>

@@ -1,0 +1,84 @@
+<app-main-content>
+  <app-content-header title="零流量分析管理"></app-content-header>
+  <app-content-body>
+    <div class="toolbar">
+      <form
+        nz-form
+        nzLayout="inline"
+        [formGroup]="searchForm">
+        <div nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>县市</nz-form-label>
+              <nz-form-control>
+                <input placeholder="县市" formControlName="city" nz-input/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>设备</nz-form-label>
+              <nz-form-control>
+                <input placeholder="设备" formControlName="equip" nz-input/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>IP</nz-form-label>
+              <nz-form-control>
+                <input placeholder="IP" formControlName="ip" nz-input/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="4">
+            <nz-form-item>
+              <button nz-button nzType="primary" (click)="search()" class="search-btn">查询</button>
+              <button nz-button nzType="default" type="reset">重置</button>
+            </nz-form-item>
+          </nz-col>
+        </div>
+      </form>
+    </div>
+
+    <button nz-button nzType="danger">通知市场部门跟进</button>
+    <div>
+      <nz-table
+        [nzBordered]="true" #zeroTable
+        [nzShowPagination]="true"
+        [nzFrontPagination]="true"
+        [nzSize]="'small'"
+        [nzLoading]="nzLoading"
+        [nzData]="dataList"
+      >
+        <thead>
+        <tr>
+          <th nzAlign="center" nzWidth="50px" [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+          <th nzWidth="50px">序号</th>
+          <th nzWidth="100px">用户</th>
+          <th nzWidth="100px">县市</th>
+          <th nzWidth="100px">设备</th>
+          <th nzWidth="100px">集团</th>
+          <th nzWidth="100px">IP</th>
+          <th nzWidth="100px">用户到期信息</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of zeroTable.data,index as i">
+          <td [nzChecked]="setOfCheckedId.has(data.id)"
+              [nzDisabled]="data.disabled"
+              (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+          <td>{{i + 1}}</td>
+          <td>{{data.user}}</td>
+          <td>{{data.city}}</td>
+          <td>{{data.equip}}</td>
+          <td>{{data.group}}</td>
+          <td>{{data.ip}}</td>
+          <td>{{data.userExpireMessage}}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+
+  </app-content-body>
+</app-main-content>

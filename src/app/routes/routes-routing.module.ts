@@ -13,6 +13,10 @@ const routes: Route[] = [
     path: 'system',
     loadChildren: () => import('./system/system.module').then(value => value.SystemModule)
   },
+  {
+    path: 'customer-flow',
+    loadChildren: () => import('./customerFlow/customer-flow.module').then(value => value.CustomerFlowModule)
+  },
 ];
 
 @NgModule({

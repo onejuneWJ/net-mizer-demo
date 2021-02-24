@@ -1,0 +1,83 @@
+<app-main-content>
+  <app-content-header title="流量异常管理"></app-content-header>
+  <app-content-body>
+    <div class="toolbar">
+      <form
+        nz-form
+        nzLayout="inline"
+        [formGroup]="searchForm">
+
+        <div nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>往期月份</nz-form-label>
+              <nz-form-control>
+                <nz-month-picker
+                  formControlName="before"
+                  nzPlaceHolder="Select month"
+                ></nz-month-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>近期月份</nz-form-label>
+              <nz-form-control>
+                <nz-month-picker
+                  formControlName="recent"
+                  nzPlaceHolder="Select month"
+                ></nz-month-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="4">
+            <nz-form-item>
+              <button nz-button nzType="primary" (click)="search()" class="search-btn">查询</button>
+              <button nz-button nzType="default" type="reset">重置</button>
+            </nz-form-item>
+          </nz-col>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <nz-table
+        [nzBordered]="true" #flowTable
+        [nzShowPagination]="true"
+        [nzFrontPagination]="true"
+        [nzSize]="'small'"
+        [nzLoading]="nzLoading"
+        [nzData]="dataList"
+      >
+        <thead>
+        <tr>
+<!--          <th nzLeft nzWidth="80px">序号</th>-->
+<!--          <th nzWidth="100px">用户</th>-->
+<!--          <th nzWidth="100px">月份</th>-->
+<!--          <th nzWidth="100px">往期上下行流量</th>-->
+<!--          <th nzWidth="100px">近期上下行流量</th>-->
+<!--          <th nzWidth="100px">上下行流量差异值</th>-->
+          <th
+            *ngFor="let column of listOfColumns"
+            [nzShowSort]="column.flag"
+            [nzSortFn]="column.compare"
+            [nzSortPriority]="column.priority"
+          >
+            {{ column.title }}
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of flowTable.data,index as i">
+          <td>{{i + 1}}</td>
+          <td>{{data.user}}</td>
+          <td>{{data.month}} 月</td>
+          <td>{{data.beforeUpDownFlow | number:'0.2-2'}} TB</td>
+          <td>{{data.recentUpDownFlow | number:'0.2-2'}} TB</td>
+          <td>{{data.recentUpDownFlow - data.beforeUpDownFlow | number:'0.2-2'}} TB</td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </app-content-body>
+</app-main-content>

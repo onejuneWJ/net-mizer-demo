@@ -1,0 +1,123 @@
+<app-main-content>
+  <app-content-header title="集团专线管理"></app-content-header>
+  <app-content-body>
+    <div class="toolbar">
+      <form
+        nz-form
+        nzLayout="inline"
+        [formGroup]="searchForm">
+        <div nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>集团</nz-form-label>
+              <nz-form-control>
+                <input placeholder="集团" formControlName="group" nz-input/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="4">
+            <nz-form-item>
+              <button nz-button nzType="primary" (click)="search()" class="search-btn">查询</button>
+              <button nz-button nzType="default" type="reset">重置</button>
+            </nz-form-item>
+          </nz-col>
+        </div>
+      </form>
+    </div>
+    <div>
+      <nz-table
+        [nzBordered]="true" #groupTable
+        [nzShowPagination]="true"
+        [nzFrontPagination]="true"
+        [nzLoading]="nzLoading"
+        [nzData]="dataList"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="50px">序号</th>
+          <th nzWidth="100px">集团</th>
+          <th nzWidth="100px">用户数</th>
+          <th nzWidth="100px">零流量用户数</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of groupTable.data,index as i">
+          <td>{{i + 1}}</td>
+          <td>{{data.group}}</td>
+          <td><a nz-button nzType="link" (click)="userShowModal()">{{data.userNum | number:'1.0-0'}}</a></td>
+          <td><a nz-button nzType="link" (click)="userZeroShowModal()">{{data.zeroUserNum | number:'1.0-0'}}</a></td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </app-content-body>
+</app-main-content>
+
+<nz-modal nzWidth="1000px" [(nzVisible)]="isVisible" nzTitle="集团用户信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <nz-table
+      [nzBordered]="true" #userTable
+      [nzShowPagination]="true"
+      [nzFrontPagination]="true"
+      [nzSize]="'small'"
+      [nzLoading]="userTableLoading"
+      [nzData]="userDataList"
+    >
+      <thead>
+      <tr>
+        <th nzWidth="50px">序号</th>
+        <th nzWidth="100px">用户</th>
+        <th nzWidth="100px">县市</th>
+        <th nzWidth="100px">设备</th>
+        <th nzWidth="100px">带宽</th>
+        <th nzWidth="100px">IP</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of userTable.data,index as i">
+        <td>{{i + 1}}</td>
+        <td>{{data.user}}</td>
+        <td>{{data.city}}</td>
+        <td>{{data.equip}}</td>
+        <td>{{data.bandwidth | number:'0.2-2'}} Mbps</td>
+        <td>{{data.ip}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-modal>
+
+<nz-modal nzWidth="1000px" [(nzVisible)]="isZeroVisible" nzTitle="集团零流量用户信息" (nzOnCancel)="handleZeroCancel()" (nzOnOk)="handleZeroOk()">
+  <ng-container *nzModalContent>
+    <nz-table
+      [nzBordered]="true" #zeroTable
+      [nzShowPagination]="true"
+      [nzFrontPagination]="true"
+      [nzSize]="'small'"
+      [nzLoading]="userZeroTableLoading"
+      [nzData]="userZeroDataList"
+    >
+      <thead>
+      <tr>
+        <th nzWidth="50px">序号</th>
+        <th nzWidth="100px">用户</th>
+        <th nzWidth="100px">县市</th>
+        <th nzWidth="100px">设备</th>
+        <th nzWidth="100px">带宽</th>
+        <th nzWidth="100px">IP</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of zeroTable.data,index as i">
+        <td>{{i + 1}}</td>
+        <td>{{data.user}}</td>
+        <td>{{data.city}}</td>
+        <td>{{data.equip}}</td>
+        <td>{{data.bandwidth | number:'0.2-2'}} Mbps</td>
+        <td>{{data.ip}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-modal>
+
