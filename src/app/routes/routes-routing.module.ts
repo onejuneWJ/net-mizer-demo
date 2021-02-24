@@ -17,6 +17,10 @@ const routes: Route[] = [
     path: 'customer-flow',
     loadChildren: () => import('./customerFlow/customer-flow.module').then(value => value.CustomerFlowModule)
   },
+  {
+    path: 'reports',
+    loadChildren: () => import('./reports/reports.module').then(value => value.ReportsModule)
+  }
 ];
 
 @NgModule({

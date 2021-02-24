@@ -1,15 +1,10 @@
 <app-main-content>
   <app-content-body>
-    <div class="charts-wrapper">
-      <nz-card class="charts">
-        <div echarts [options]="beaconOption" (chartClick)="click($event)"></div>
-      </nz-card>
-      <nz-card class="charts">
-        <div echarts [options]="transducerOption"  (chartClick)="click($event)"></div>
-      </nz-card>
-      <nz-card class="charts">
-        <div echarts [options]="antennaOption" (chartClick)="click($event)"></div>
-      </nz-card>
+    <div class="charts">
+      <div echarts id="lmlCharts" style="width: 900px;height: 400px"></div>
+      <div echarts id="mapCharts" style="width: 600px;height: 800px"></div>
+      <div style="width: 900px;height: 400px" echarts [options]="barOptions"></div>
+      <div style="width: 600px;height: 400px;display: none"></div>
     </div>
   </app-content-body>
 </app-main-content>
