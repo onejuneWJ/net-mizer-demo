@@ -102,7 +102,6 @@ export class IndexComponent implements OnInit {
       obj[year + 'max'] = Math.floor(max / 100) * 100;
       obj[year + 'sum'] = sum;
     }
-    console.log(obj);
     return obj;
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -14,18 +14,24 @@ export class ServiceOpenAnalysisComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.searchForm = this.fb.group({
       serviceName: []
     });
-    this.dataSource = [
-      ...this.dataSource,
-      {
-        serviceName: '服务1'
-      }
-    ];
+    for (let i = 0; i < 20; i++) {
+      this.dataSource = [
+        ...this.dataSource,
+        {
+          serviceName: '业务' + i,
+          total: 12350,
+          durationAvg: '10分钟',
+          timelyRate: '98%'
+        }
+      ];
+    }
     this.dataList = this.dataSource;
     this.initChartsOption();
   }
@@ -33,7 +39,8 @@ export class ServiceOpenAnalysisComponent implements OnInit {
   search(): void {
 
   }
-  initChartsOption(): void{
+
+  initChartsOption(): void {
     this.chartsOption = {
       title: {
         text: '业务开通分析',

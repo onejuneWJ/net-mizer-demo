@@ -31,23 +31,22 @@
       <tr>
         <th nzWidth="200px">业务名称</th>
         <th nzWidth="200px">开通总量</th>
-        <th nzWidth="200px">接入BRAS</th>
-        <th nzWidth="200px">BRAS端口</th>
-        <th nzWidth="200px">接入OLT IP</th>
-        <th nzWidth="200px">PON口</th>
+        <th nzWidth="200px">各个环节平均历时</th>
+        <th nzWidth="200px">平均处理及时率</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let data of basicTable.data">
         <td>{{data.serviceName}}</td>
-        <td>{{data.innerVlan}}</td>
-        <td>{{data.bras}}</td>
-        <td>{{data.brasPort}}</td>
-        <td>{{data.oltIp}}</td>
-        <td>{{data.pon}}</td>
+        <td>{{data.total}}</td>
+        <td>{{data.durationAvg}}</td>
+        <td>{{data.timelyRate}}</td>
       </tr>
       </tbody>
     </nz-table>
-    <div class="charts" echarts [options]="chartsOption"></div>
+    <nz-card>
+
+      <div class="charts" echarts [options]="chartsOption"></div>
+    </nz-card>
   </app-content-body>
 </app-main-content>
