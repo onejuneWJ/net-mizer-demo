@@ -22,9 +22,7 @@ const routes: Route[] = [
   {
     path: 'reports',
     loadChildren: () => import('./reports/reports.module').then(value => value.ReportsModule)
-  },
-  {path: '403', component: Error403Component},
-  {path: '**', component: Error404Component},
+  }
 ];
 
 @NgModule({
