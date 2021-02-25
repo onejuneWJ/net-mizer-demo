@@ -12,14 +12,14 @@
         >
           <thead>
           <tr>
-            <th nzWidth="50px">序号</th>
+            <th nzWidth="30px">序号</th>
             <th nzWidth="60px">用户</th>
             <th nzWidth="60px">县市</th>
             <th nzWidth="60px">设备</th>
             <th nzWidth="60px">带宽利用率</th>
             <th nzWidth="60px">IP</th>
             <th nzWidth="60px">到期时间</th>
-            <th nzWidth="120px">备注</th>
+            <th nzWidth="120px">操作</th>
           </tr>
           </thead>
           <tbody>
@@ -31,13 +31,13 @@
             <td>{{data.bandwidthUsage | number: '0.2-2'}}%</td>
             <td>{{data.ip}}</td>
             <td>{{data.expireTime}}</td>
-            <td class="remarks"><input nz-input/><button nz-button nzType="primary">提交</button></td>
+            <td><button nz-button nzType="primary" (click)="remarks()">备注</button></td>
           </tr>
           </tbody>
         </nz-table>
       </nz-tab>
       <nz-tab nzTitle="带宽不足用户">
-        <button nz-button nzType="danger">通知市场部门跟进</button>
+        <button nz-button nzType="danger" (click)="showMarketModal()">通知市场部门跟进</button>
         <nz-table
           [nzBordered]="true" #bandwidthShortageTable
           [nzShowPagination]="true"
@@ -47,8 +47,8 @@
         >
           <thead>
           <tr>
-            <th nzAlign="center" nzWidth="50px" [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
-            <th nzWidth="50px">序号</th>
+            <th nzAlign="center" nzWidth="10px" [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+            <th nzWidth="10px">序号</th>
             <th nzWidth="60px">用户</th>
             <th nzWidth="60px">县市</th>
             <th nzWidth="60px">设备</th>
@@ -72,9 +72,9 @@
         </nz-table>
       </nz-tab>
       <nz-tab nzTitle="带宽使用波动情况">
-        <div align="right">
+        <!--<div align="right">
           <button nz-button nzType="primary" nzShape="round" (click)="download()"><i nz-icon nzType="download"></i>导出报表</button>
-        </div>
+        </div>-->
         <div>
           <nz-card>
             <div echarts [options]="bandwidthSituationOpt"></div>
@@ -90,7 +90,7 @@
         >
           <thead>
           <tr>
-            <th nzWidth="50px">序号</th>
+            <th nzWidth="30px">序号</th>
             <th nzWidth="60px">用户</th>
             <th nzWidth="60px">县市</th>
             <th nzWidth="60px">设备</th>
@@ -121,3 +121,16 @@
     </nz-card>
   </ng-container>
 </nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleMarket" (nzOnCancel)="handleMarketCancel()" (nzOnOk)="handleMarketOk()">
+  <ng-container *nzModalContent>
+    <p>已通过邮件方式通知市场部门跟进！</p>
+  </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleRemarks" nzTitle="备注" (nzOnCancel)="handleRemarksCancel()" (nzOnOk)="handleRemarksOk()">
+  <ng-container *nzModalContent>
+    <textarea rows="4" nz-input [(ngModel)]="inputValue"></textarea>
+  </ng-container>
+</nz-modal>
+

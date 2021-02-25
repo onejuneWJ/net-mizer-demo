@@ -11,6 +11,8 @@ import {format} from "date-fns";
 export class UserManageComponent implements OnInit {
 
   isVisible = false;
+  isVisibleMarket = false
+  isVisibleRemarks = false;
   expireTableLoading = false;
   expireDataList: any[] = [];
   bandwidthShortageTableLoading = false;
@@ -19,6 +21,7 @@ export class UserManageComponent implements OnInit {
   bandwidthSituationDataList: any[] = [];
   bandwidthSituationOpt: EChartsOption = null;
   basisOpt: EChartsOption = null;
+  inputValue?: string;
 
 
   tableDataList: any[] = [];
@@ -41,7 +44,7 @@ export class UserManageComponent implements OnInit {
         ...this.tableDataList,
         {
           user: '用户' + i,
-          city: '成都',
+          city: '洛江区',
           equip: '设备' + i,
           ip: '111.111.0.' + i ,
           bandwidthUsage: 80 + Math.random() * 10,
@@ -57,7 +60,7 @@ export class UserManageComponent implements OnInit {
         {
           id: i,
           user: '用户' + i,
-          city: '成都',
+          city: '泉港区',
           equip: '设备' + i,
           ip: '111.111.0.' + i ,
           bandwidthUsage: 89 + Math.random() * 10,
@@ -71,7 +74,7 @@ export class UserManageComponent implements OnInit {
         ...this.bandwidthSituationTableDataList,
         {
           user: '用户' + i,
-          city: '成都',
+          city: '石狮市',
           equip: '设备' + i,
           ip: '111.111.0.' + i ,
           bandwidthPeak: 95 - i*0.1,
@@ -81,7 +84,6 @@ export class UserManageComponent implements OnInit {
     this.bandwidthSituationDataList = this.bandwidthSituationTableDataList;
   }
 
-  download(){}
 
   statisticsBandwidthOpt() {
     this.bandwidthSituationOpt = {
@@ -96,6 +98,11 @@ export class UserManageComponent implements OnInit {
       },
       legend: {
         data: ['带宽利用率峰值']
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
       },
       xAxis: {
         type: 'category',
@@ -114,32 +121,63 @@ export class UserManageComponent implements OnInit {
 
   statisticsBasisOpt() {
     this.basisOpt = {
-      title: {
-        text: '用户一个月内每周流量使用情况'
-      },
-      tooltip: {
-        trigger: 'item',
-        formatter: function (params) {
-          return params["value"] + ' G';
-        }
-      },
-      legend: {
-        data: ['流量']
-      },
-      xAxis: {
-        type: 'category',
-        data: ['第一周', '第二周', '第三周', '第四周']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [{
-        name: '流量',
-        data: [101, 125, 129, 150],
-        type: 'line'
-      }]
-    };
+        title: {
+          text: '带宽不足依据'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['使用带宽', '标准带宽']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: '使用带宽',
+            type: 'line',
+            data: [86, 90, 92, 91, 95, 93, 96]
+          },
+          {
+            name: '标准带宽',
+            type: 'line',
+            data: [100, 100, 100, 100, 100, 100, 100]
+          },
+        ]
+      };
 
+  }
+
+  remarks(){
+    this.isVisibleRemarks = true;
+  }
+
+
+  handleRemarksOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisibleRemarks = false;
+  }
+
+  handleRemarksCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisibleRemarks = false;
   }
 
   showModal(): void {
@@ -178,5 +216,19 @@ export class UserManageComponent implements OnInit {
   onAllChecked(checked: boolean): void {
     this.bandwidthShortageDataList.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
     this.refreshCheckedStatus();
+  }
+
+  showMarketModal(): void {
+    this.isVisibleMarket = true;
+  }
+
+  handleMarketOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisibleMarket = false;
+  }
+
+  handleMarketCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisibleMarket = false;
   }
 }

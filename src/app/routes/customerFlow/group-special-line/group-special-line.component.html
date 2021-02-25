@@ -28,13 +28,14 @@
       <nz-table
         [nzBordered]="true" #groupTable
         [nzShowPagination]="true"
+        [nzSize]="'small'"
         [nzFrontPagination]="true"
         [nzLoading]="nzLoading"
         [nzData]="dataList"
       >
         <thead>
         <tr>
-          <th nzWidth="50px">序号</th>
+          <th nzWidth="30px">序号</th>
           <th nzWidth="100px">集团</th>
           <th nzWidth="100px">用户数</th>
           <th nzWidth="100px">零流量用户数</th>
@@ -65,7 +66,7 @@
     >
       <thead>
       <tr>
-        <th nzWidth="50px">序号</th>
+        <th nzWidth="30px">序号</th>
         <th nzWidth="100px">用户</th>
         <th nzWidth="100px">县市</th>
         <th nzWidth="100px">设备</th>
@@ -79,7 +80,7 @@
         <td>{{data.user}}</td>
         <td>{{data.city}}</td>
         <td>{{data.equip}}</td>
-        <td>{{data.bandwidth | number:'0.2-2'}} Mbps</td>
+        <td>{{data.bandWidth | number:'0.2-2'}} Mbps</td>
         <td>{{data.ip}}</td>
       </tr>
       </tbody>
@@ -99,7 +100,7 @@
     >
       <thead>
       <tr>
-        <th nzWidth="50px">序号</th>
+        <th nzWidth="30px">序号</th>
         <th nzWidth="100px">用户</th>
         <th nzWidth="100px">县市</th>
         <th nzWidth="100px">设备</th>
@@ -113,7 +114,7 @@
         <td>{{data.user}}</td>
         <td>{{data.city}}</td>
         <td>{{data.equip}}</td>
-        <td>{{data.bandwidth | number:'0.2-2'}} Mbps</td>
+        <td>{{data.bandWidth | number:'0.2-2'}} Mbps</td>
         <td>{{data.ip}}</td>
       </tr>
       </tbody>

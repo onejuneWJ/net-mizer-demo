@@ -41,7 +41,29 @@
       </form>
     </div>
 
-    <button nz-button nzType="danger">通知市场部门跟进</button>
+    <nz-content>
+      <div class="trend">
+        <nz-card>
+          <div echarts [options]="cityOpt"></div>
+        </nz-card>
+      </div>
+
+      <div class="trend">
+        <nz-card>
+          <div echarts [options]="equipOpt"></div>
+        </nz-card>
+      </div>
+
+      <div class="trend">
+        <nz-card>
+          <div echarts [options]="ipOpt"></div>
+        </nz-card>
+      </div>
+    </nz-content>
+
+    <button nz-button nzType="danger" (click)="showModal()">通知市场部门跟进</button>
+
+
     <div>
       <nz-table
         [nzBordered]="true" #zeroTable
@@ -53,8 +75,8 @@
       >
         <thead>
         <tr>
-          <th nzAlign="center" nzWidth="50px" [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
-          <th nzWidth="50px">序号</th>
+          <th nzAlign="center" nzWidth="10px" [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+          <th nzWidth="10px">序号</th>
           <th nzWidth="100px">用户</th>
           <th nzWidth="100px">县市</th>
           <th nzWidth="100px">设备</th>
@@ -82,3 +104,9 @@
 
   </app-content-body>
 </app-main-content>
+
+<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <p>已通过邮件方式通知市场部门跟进！</p>
+  </ng-container>
+</nz-modal>

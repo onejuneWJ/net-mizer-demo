@@ -34,8 +34,8 @@ export class GroupSpecialLineComponent implements OnInit {
         {
           id: i,
           group: '集团' + i,
-          userNum: Math.random() * 10000000,
-          zeroUserNum: Math.random() * 10000000,
+          userNum: Math.random() * 1000000,
+          zeroUserNum: Math.random() * 1000,
         }
       ];
     }
@@ -56,7 +56,7 @@ export class GroupSpecialLineComponent implements OnInit {
           id: i,
           user: '用户'+ i,
           ip: '177.56.2.' + i,
-          city: '成都',
+          city: '丰泽区',
           equip: '设备' + i,
           bandWidth: Math.random() * 100
         }
@@ -83,7 +83,7 @@ export class GroupSpecialLineComponent implements OnInit {
           id: i,
           user: '用户'+ i,
           ip: '177.56.2.' + i,
-          city: '成都',
+          city: '丰泽区',
           equip: '设备' + i,
           bandWidth: Math.random() * 100
         }
