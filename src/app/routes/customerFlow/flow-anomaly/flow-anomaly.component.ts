@@ -26,17 +26,17 @@ export class FlowAnomalyComponent implements OnInit {
       priority: false
     },
     {
-      title: '往期上下行流量',
+      title: '往期上下行流量(TB)',
       compare: null,
       priority: false
     },
     {
-      title: '近期上下行流量',
+      title: '近期上下行流量(TB)',
       compare: null,
       priority: false
     },
     {
-      title: '上下行流量差异值',
+      title: '上下行流量差异值(TB)',
       compare: (a: any, b: any) => (a.recentUpDownFlow-a.beforeUpDownFlow) - (b.recentUpDownFlow-b.beforeUpDownFlow),
       priority: false,
       flag: true
