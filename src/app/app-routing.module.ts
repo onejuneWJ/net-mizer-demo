@@ -25,8 +25,6 @@ const routes: Routes = [
     loadChildren: () => import('./routes/login/login.module').then(m => m.LoginModule),
   },
   {path: 'error', component: Error500Component},
-  {path: '403', component: Error403Component},
-  {path: '**', component: Error404Component},
 ];
 
 @NgModule({

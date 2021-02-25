@@ -1,0 +1,52 @@
+<app-main-content>
+  <app-content-header [title]="'用户信息'"></app-content-header>
+  <app-content-body>
+
+    <form nz-form [formGroup]="searchForm">
+      <nz-row nzGutter="48">
+        <nz-col nzSpan="6">
+          <nz-form-item nzGutter="12">
+            <nz-form-label nzSpan="8">用户名称</nz-form-label>
+            <nz-form-control nzSpan="16">
+              <input nz-input formControlName="username"/>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <button nz-button nzType="primary" (click)="search()">查询</button>
+          <button nz-button nzType="default" type="reset" style="margin-left: 16px">重置</button>
+        </nz-col>
+      </nz-row>
+    </form>
+
+    <nz-table
+      #basicTable
+      [nzData]="dataList"
+      nzBordered
+      nzSize="small"
+      nzShowSizeChanger
+    >
+      <thead>
+      <!--      内层VLAN”、“接入BRAS”、“BRAS端口”、“接入OLT IP”“PON口”-->
+      <tr>
+        <th nzWidth="200px">用户名</th>
+        <th nzWidth="200px">内层VLAN</th>
+        <th nzWidth="200px">接入BRAS</th>
+        <th nzWidth="200px">BRAS端口</th>
+        <th nzWidth="200px">接入OLT IP</th>
+        <th nzWidth="200px">PON口</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{data.username}}</td>
+        <td>{{data.innerVlan}}</td>
+        <td>{{data.bras}}</td>
+        <td>{{data.brasPort}}</td>
+        <td>{{data.oltIp}}</td>
+        <td>{{data.pon}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </app-content-body>
+</app-main-content>

@@ -2,6 +2,8 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Route, RouterModule} from '@angular/router';
 import {IndexComponent} from './index/index.component';
+import {Error403Component} from '@shared/components/error/error-403.component';
+import {Error404Component} from '@shared/components/error/error-404.component';
 
 const routes: Route[] = [
   {path: '', redirectTo: 'index', pathMatch: 'full'},
@@ -20,7 +22,9 @@ const routes: Route[] = [
   {
     path: 'reports',
     loadChildren: () => import('./reports/reports.module').then(value => value.ReportsModule)
-  }
+  },
+  {path: '403', component: Error403Component},
+  {path: '**', component: Error404Component},
 ];
 
 @NgModule({

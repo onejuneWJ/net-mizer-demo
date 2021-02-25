@@ -1,0 +1,64 @@
+<app-main-content>
+  <app-content-header [title]="'分时段流量统计'"></app-content-header>
+  <app-content-body>
+
+    <form nz-form [formGroup]="searchForm">
+      <nz-row nzGutter="48">
+        <nz-col nzSpan="6">
+          <nz-form-item nzGutter="12">
+            <nz-form-label nzSpan="8">统计维度</nz-form-label>
+            <nz-form-control nzSpan="16">
+              <nz-select formControlName="statisticalDimension">
+                <nz-option nzLabel="集团" [nzValue]="0"></nz-option>
+                <nz-option nzLabel="BRAS" [nzValue]="1"></nz-option>
+                <nz-option nzLabel="县市" [nzValue]="2"></nz-option>
+                <nz-option nzLabel="OLT" [nzValue]="3"></nz-option>
+                <nz-option nzLabel="交换机" [nzValue]="4"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-form-item nzGutter="12">
+            <nz-form-label nzSpan="8">时间区间</nz-form-label>
+            <nz-form-control nzSpan="16">
+              <nz-select formControlName="timeInterval">
+                <nz-option nzLabel="3小时" [nzValue]="0"></nz-option>
+                <nz-option nzLabel="6小时" [nzValue]="1"></nz-option>
+                <nz-option nzLabel="12小时" [nzValue]="2"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <button nz-button nzType="primary" (click)="search()">查询</button>
+          <button nz-button nzType="default" type="reset" style="margin-left: 16px">重置</button>
+        </nz-col>
+      </nz-row>
+    </form>
+
+    <nz-table
+      #basicTable
+      [nzData]="dataList"
+      nzBordered
+      nzSize="small"
+      nzShowSizeChanger
+    >
+      <thead>
+      <!--      BRAS设备-BRAS端口-交换机设备-交换机下行端口-OLT IP-PON口-->
+      <tr>
+        <th nzWidth="400px">时段</th>
+        <th nzWidth="400px">上行流量</th>
+        <th nzWidth="400px">下行流量</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{data.timeStart| date: 'yyyy-MM-dd HH:mm:ss'}}~~{{data.timeEnd| date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{data.upFlow}}</td>
+        <td>{{data.downFlow}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </app-content-body>
+</app-main-content>

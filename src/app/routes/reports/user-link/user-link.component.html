@@ -1,1 +1,110 @@
-<p>user-link works!</p>
+<app-main-content>
+  <app-content-header [title]="'用户链路管理'"></app-content-header>
+  <app-content-body>
+
+    <form nz-form [formGroup]="searchForm">
+      <nz-row nzGutter="48">
+        <nz-col nzSpan="6">
+          <nz-form-item nzGutter="12">
+            <nz-form-label nzSpan="8">查询方式</nz-form-label>
+            <nz-form-control nzSpan="16">
+              <nz-select formControlName="searchType" (ngModelChange)="searchTypeChange($event)">
+                <nz-option nzLabel="BRAS设备+端口" [nzValue]="0"></nz-option>
+                <nz-option nzLabel="交换机设备+端口" [nzValue]="1"></nz-option>
+                <nz-option nzLabel="OLT+PON口" [nzValue]="2"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <ng-container *ngIf="currSearchType===0">
+          <nz-col nzSpan="6">
+            <nz-form-item nzGutter="12">
+              <nz-form-label nzSpan="8">BRAS设备</nz-form-label>
+              <nz-form-control nzSpan="16">
+                <input nz-input formControlName="brasEquip"/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="6">
+            <nz-form-item nzGutter="12">
+              <nz-form-label nzSpan="8">BRAS端口</nz-form-label>
+              <nz-form-control nzSpan="16">
+                <input nz-input formControlName="brasPort"/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </ng-container>
+        <ng-container *ngIf="currSearchType===1">
+          <nz-col nzSpan="6">
+            <nz-form-item nzGutter="12">
+              <nz-form-label nzSpan="8">交换机设备</nz-form-label>
+              <nz-form-control nzSpan="16">
+                <input nz-input formControlName="switcherEquip"/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="6">
+            <nz-form-item nzGutter="12">
+              <nz-form-label nzSpan="8">交换机下行端口</nz-form-label>
+              <nz-form-control nzSpan="16">
+                <input nz-input formControlName="switcherDownPort"/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </ng-container>
+        <ng-container *ngIf="currSearchType===2">
+          <nz-col nzSpan="6">
+            <nz-form-item nzGutter="12">
+              <nz-form-label nzSpan="8">OLT</nz-form-label>
+              <nz-form-control nzSpan="16">
+                <input nz-input formControlName="oltIp"/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col nzSpan="6">
+            <nz-form-item nzGutter="12">
+              <nz-form-label nzSpan="8">PON口</nz-form-label>
+              <nz-form-control nzSpan="16">
+                <input nz-input formControlName="pon"/>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </ng-container>
+        <nz-col nzSpan="6">
+          <button nz-button nzType="primary" (click)="search()">查询</button>
+          <button nz-button nzType="default" style="margin-left: 16px" (click)="resetSearchForm()">重置</button>
+        </nz-col>
+      </nz-row>
+    </form>
+
+    <nz-table
+      #basicTable
+      [nzData]="dataList"
+      nzBordered
+      nzSize="small"
+      nzShowSizeChanger
+    >
+      <thead>
+      <!--      BRAS设备-BRAS端口-交换机设备-交换机下行端口-OLT IP-PON口-->
+      <tr>
+        <th>BRAS设备</th>
+        <th>BRAS端口</th>
+        <th>交换机设备</th>
+        <th>交换机下行端口</th>
+        <th>OLT-IP</th>
+        <th>PON口</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{data.brasEquip}}</td>
+        <td>{{data.brasPort}}</td>
+        <td>{{data.switcherEquip}}</td>
+        <td>{{data.switcherDownPort}}</td>
+        <td>{{data.oltIp}}</td>
+        <td>{{data.pon}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </app-content-body>
+</app-main-content>
